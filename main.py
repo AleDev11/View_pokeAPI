@@ -124,7 +124,8 @@ class App(customtkinter.CTk):
         customtkinter.set_widget_scaling(new_scaling_float)
 
     def sidebar_button_event(self):
-        self.tabview.destroy()
+        if self.tabview is not None:
+            self.tabview.destroy()
         self.textbox = customtkinter.CTkTextbox(self, width=200, height=1000, font=customtkinter.CTkFont(size=12, weight="bold"))
         self.textbox.grid(row=0, column=1, columnspan=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
