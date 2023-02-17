@@ -1,6 +1,8 @@
 import customtkinter
 import requests
 import json
+from PIL import ImageTk
+from urllib.request import urlopen
 
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("blue")
@@ -61,6 +63,14 @@ class App(customtkinter.CTk):
             self.textboxStats.insert("end", f"Ability: {abilitiesPokemon['ability']['name']} \n \n")
 
         # Image
+        u = urlopen(data['sprites']['front_default'])
+        raw_data = u.read()
+        u.close()
+
+        photo = ImageTk.PhotoImage(data=raw_data)
+        self.label = customtkinter.CTkLabel(self.tabview.tab("Image"), image=photo, text="")
+        self.label.image = photo
+        self.label.grid(row=0, column=0, padx=15, pady=10)
 
         # JSON
         self.textboxJson = customtkinter.CTkTextbox(self.tabview.tab("JSON"), width=1000, height=400, font=customtkinter.CTkFont(size=12, weight="bold"))
