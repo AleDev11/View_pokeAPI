@@ -26,36 +26,41 @@ class App(customtkinter.CTk):
         self.tabview.grid(row=0, column=1, columnspan=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
         self.tabview.add("Information general")
         self.tabview.tab("Information general").grid_columnconfigure(0, weight=1)
-        self.tabview.add("Evolutions")
-        self.tabview.tab("Evolutions").grid_columnconfigure(0, weight=1)
-        self.tabview.add("Stats")
-        self.tabview.tab("Stats").grid_columnconfigure(0, weight=1)
+        self.tabview.add("Stats base")
+        self.tabview.tab("Stats base").grid_columnconfigure(0, weight=1)
         self.tabview.add("Abilities")
         self.tabview.tab("Abilities").grid_columnconfigure(0, weight=1)
+        self.tabview.add("Image")
+        self.tabview.tab("Image").grid_columnconfigure(0, weight=1)
         self.tabview.add("JSON")
         self.tabview.tab("JSON").grid_columnconfigure(0, weight=1)
 
         # Information general
-        self.label = customtkinter.CTkLabel(self.tabview.tab("Information general"), text=f"Name: {data['name']}")
-        self.label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
+        self.textboxStats = customtkinter.CTkTextbox(self.tabview.tab("Information general"), width=1000, height=400,
+                                                     font=customtkinter.CTkFont(size=12, weight="bold"))
+        self.textboxStats.grid(row=0, column=0, padx=10, pady=10, sticky="w")
 
-        self.label = customtkinter.CTkLabel(self.tabview.tab("Information general"), text=f"Height: {data['height']}")
-        self.label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
-
-        self.label = customtkinter.CTkLabel(self.tabview.tab("Information general"), text=f"Weight: {data['weight']}")
-        self.label.grid(row=2, column=0, padx=10, pady=10, sticky="w")
-
-        self.label = customtkinter.CTkLabel(self.tabview.tab("Information general"), text=f"Base experience: {data['base_experience']}")
-        self.label.grid(row=3, column=0, padx=10, pady=10, sticky="w")
-
-        self.label = customtkinter.CTkLabel(self.tabview.tab("Information general"), text=f"Order: {data['order']}")
-        self.label.grid(row=4, column=0, padx=10, pady=10, sticky="w")
-
-        # Evolutions
+        self.textboxStats.insert("end", f"Name: {data['name']} \n \n")
+        self.textboxStats.insert("end", f"Height: {data['height']} \n \n")
+        self.textboxStats.insert("end", f"Weight: {data['weight']} \n \n")
+        self.textboxStats.insert("end", f"Base experience: {data['base_experience']} \n \n")
+        self.textboxStats.insert("end", f"Order: {data['order']} \n \n")
 
         # Stats
+        self.textboxStats = customtkinter.CTkTextbox(self.tabview.tab("Stats base"), width=1000, height=400, font=customtkinter.CTkFont(size=12, weight="bold"))
+        self.textboxStats.grid(row=0, column=0, padx=10, pady=10, sticky="w")
+
+        for statsPokemon in data['stats']:
+            self.textboxStats.insert("end", f"{statsPokemon['stat']['name']}: {statsPokemon['base_stat']} \n \n")
 
         # Abilities
+        self.textboxStats = customtkinter.CTkTextbox(self.tabview.tab("Abilities"), width=1000, height=400, font=customtkinter.CTkFont(size=12, weight="bold"))
+        self.textboxStats.grid(row=0, column=0, padx=10, pady=10, sticky="w")
+
+        for abilitiesPokemon in data['abilities']:
+            self.textboxStats.insert("end", f"Ability: {abilitiesPokemon['ability']['name']} \n \n")
+
+        # Image
 
         # JSON
         self.textboxJson = customtkinter.CTkTextbox(self.tabview.tab("JSON"), width=1000, height=400, font=customtkinter.CTkFont(size=12, weight="bold"))
